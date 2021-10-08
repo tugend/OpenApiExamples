@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleVersioning
+namespace ApiVersioning.Domain.Forecast.ForecasterModels
 {
     public class WeatherForecast
     {

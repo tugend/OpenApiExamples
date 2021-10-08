@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace SecureWebApi.Tests.TestHelpers.Extensions
+namespace Tests.TestHelpers.Extensions
 {
     public static class HttpResponseMessageExtensions
     {
@@ -21,10 +21,15 @@ namespace SecureWebApi.Tests.TestHelpers.Extensions
 
         public static async Task<T> Deserialize<T>(this Task<HttpResponseMessage> pendingResponse)
         {
+            var content = await pendingResponse.ReadContent();
+            return JsonConvert.DeserializeObject<T>(content);
+        }
+        
+        public static async Task<string> ReadContent(this Task<HttpResponseMessage> pendingResponse)
+        {
             var response = await pendingResponse;
             
-            var content = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

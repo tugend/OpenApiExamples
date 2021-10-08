@@ -20,8 +20,7 @@ namespace EndpointVersioning.Controllers.EndpointModels.Forecast.V2
             Summary = summary;
         }
         
-        public static IEnumerable<ForecastV2Response> From(IEnumerable<WeatherForecast> WeatherForecasts) =>
-            WeatherForecasts.Select(x =>
-                new ForecastV2Response(x.Date, x.TemperatureC, x.TemperatureF, x.Summary));
+        public static IEnumerable<ForecastV2Response> From(IEnumerable<WeatherForecast> forecasts) =>
+            forecasts.Select(x => new ForecastV2Response(x.Date, x.TemperatureC, x.TemperatureF, x.Summary));
     }
 }

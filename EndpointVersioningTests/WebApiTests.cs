@@ -8,18 +8,18 @@ using EndpointVersioning;
 using EndpointVersioning.Controllers.EndpointModels.Forecast.V2;
 using EndpointVersioning.Domain.Forecast.ForecasterModels;
 using Microsoft.AspNetCore.Mvc.Testing;
-using SecureWebApi.Tests.TestHelpers.Builders;
-using SecureWebApi.Tests.TestHelpers.Extensions;
+using Tests.TestHelpers.Builders;
+using Tests.TestHelpers.Extensions;
 using Xunit;
 
-namespace SecureWebApi.Tests.Endpoints.Users.Restricted
+namespace EndpointVersioningTests
 {
     public class WebApiTests : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly HttpClient _client;
 
         public WebApiTests(WebApplicationFactory<Startup> fixture) => _client = fixture
-            .WithWebHostBuilder(x => { })
+            .WithWebHostBuilder(_ => { })
             .CreateClient();
 
         [Fact]

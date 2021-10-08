@@ -4,7 +4,6 @@ using EndpointVersioning.Controllers.EndpointModels.Forecast.V1;
 using EndpointVersioning.Controllers.EndpointModels.Forecast.V2;
 using EndpointVersioning.Domain.Forecast;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace EndpointVersioning.Controllers
 {
@@ -13,15 +12,13 @@ namespace EndpointVersioning.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly Forecaster _forecaster;
-        private readonly ILogger<WeatherController> _logger;
 
-        public WeatherController(Forecaster forecaster, ILogger<WeatherController> logger)
+        public WeatherController(Forecaster forecaster)
         {
             _forecaster = forecaster;
-            _logger = logger;
         }
 
-        [Obsolete("Please upgrade to v1, this version will be removed in December 2030.")]
+        [Obsolete("Please upgrade to v2, this version will be removed in December 2030.")]
         [HttpGet("forecast/")]
         [HttpGet("forecast/v1")]
         public IEnumerable<ForecastV1Response> GetForecastV1()

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Json;
 
-namespace SecureWebApi.Tests.TestHelpers.Builders
+namespace Tests.TestHelpers.Builders
 {
     public class HttpRequestMessageBuilder
     {

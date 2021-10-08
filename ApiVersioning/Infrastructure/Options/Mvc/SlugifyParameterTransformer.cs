@@ -1,8 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Routing;
 
-namespace SimpleVersioning.Infrastructure
+namespace ApiVersioning.Infrastructure.Options.Mvc
 {
+    /// <summary>
+    /// Transform all controller routes to slug-case
+    /// Example: Weather/V1/ForecastReport => weather/v1/forecast-report
+    /// </summary>
     public class SlugifyParameterTransformer : IOutboundParameterTransformer
     {
         public string TransformOutbound(object value)

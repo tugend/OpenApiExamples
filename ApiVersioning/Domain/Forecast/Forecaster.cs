@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using ApiVersioning.Domain.Forecast.ForecasterModels;
 
-namespace SimpleVersioning.Controllers
+namespace ApiVersioning.Domain.Forecast
 {
     public class Forecaster
     {
-        private static readonly Random rng = new();
+        private static readonly Random Rng = new();
         
         private static readonly string[] Summaries = {
             "Freezing", 
@@ -29,7 +27,12 @@ namespace SimpleVersioning.Controllers
                 .Range(1, 5)
                 .Select(index => new WeatherForecast(
                     date: DateTime.Now.AddDays(index),
-                    temperatureC: rng.Next(-20, 55),
-                    summary: Summaries[rng.Next(Summaries.Length)]));
+                    temperatureC: Rng.Next(-20, 55),
+                    summary: Summaries[Rng.Next(Summaries.Length)]));
+
+        public IEnumerable<WeatherForecast> Get(DateTime @from, DateTime to)
+        {
+            return Get();
+        }
     }
 }
