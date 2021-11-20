@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerUI;
@@ -23,7 +24,7 @@ namespace ApiVersioning.Infrastructure.Options
             // selector is {documentName}.
             options.RoutePrefix = "swagger";
             
-            foreach (var description in _provider.ApiVersionDescriptions)
+            foreach (var description in _provider.ApiVersionDescriptions.OrderBy(x => x.GroupName))
             {
                 var url = $"/swagger/{description.GroupName}/swagger.json";
                 var documentName = description.GroupName;

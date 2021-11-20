@@ -1,4 +1,5 @@
-﻿using ApiVersioning.Infrastructure.Options.SwaggerGen;
+﻿using System.Linq;
+using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -24,7 +25,5 @@ namespace ApiVersioning.Infrastructure.Options
 
             options.DocumentFilter<RemoveDefaultApiVersionRouteDocumentFilter>();
         }
-
-        // TODO: Source: https://stackoverflow.com/questions/58834430/c-sharp-net-core-swagger-trying-to-use-multiple-api-versions-but-all-end-point
     }
 }

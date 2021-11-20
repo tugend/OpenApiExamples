@@ -14,7 +14,7 @@ namespace ApiVersioning.Infrastructure.Options.SwaggerGen
     /// which does not make sense when we're applying a default version.
     /// </summary>
     public class RemoveDefaultApiVersionRouteDocumentFilter : IDocumentFilter  
-    {  
+    {
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)  
         {  
             foreach (var apiDescription in context.ApiDescriptions)  
