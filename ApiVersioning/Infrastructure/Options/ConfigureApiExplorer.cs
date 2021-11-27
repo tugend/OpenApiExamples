@@ -10,8 +10,8 @@ namespace ApiVersioning.Infrastructure.Options
     {
         public void Configure(ApiExplorerOptions options)
         {
-            options.GroupNameFormat = "S-VV";
-            options.SubstitutionFormat = "VV/S";
+            options.GroupNameFormat = "S-V";
+            options.SubstitutionFormat = "V/S";
             options.SubstituteApiVersionInUrl = true;
         }
     }

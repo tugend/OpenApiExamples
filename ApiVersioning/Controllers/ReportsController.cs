@@ -12,8 +12,8 @@ namespace ApiVersioning.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ReportsController : ControllerBase
     {
-        [ApiVersion("2.reports")]
-        [ApiVersion("3.reports")]
+        [ApiVersion("2-reports")]
+        [ApiVersion("3-reports")]
         [HttpGet]
         public IEnumerable<ReportResponse> GetReports(ReportRange range)
         {

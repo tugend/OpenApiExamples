@@ -20,8 +20,8 @@ namespace ApiVersioning.Controllers
             _forecaster = forecaster;
         }
 
-        [ApiVersion("2.weather")]
-        [ApiVersion("1.weather")]
+        [ApiVersion("2-weather")]
+        [ApiVersion("1-weather")]
         [Obsolete("Please upgrade to v3, this version will be removed in December 2030.")]
         [HttpGet("forecasts")]
         public IEnumerable<ForecastV1Response> GetV1Forecast()
@@ -32,7 +32,7 @@ namespace ApiVersioning.Controllers
             return ForecastV1Response.From(forecasts);
         }
     
-        [ApiVersion("3.weather")]
+        [ApiVersion("3-weather")]
         [HttpGet("forecasts")]
         public IEnumerable<ForecastResponse> GetForecast(ForecastRange range)
         {
