@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace ExampledApi.Controllers.Auction.TestEndpoint
 {
@@ -33,12 +32,20 @@ namespace ExampledApi.Controllers.Auction.TestEndpoint
     }
     
     // https://stackoverflow.com/questions/29655502/json-net-require-all-properties-on-deserialization/29660550
-    public class TestRequest2
+    public record TestRequest2
     {
-        public string? SomeNullableReferenceType { get; set; }
-        public string SomeNonNullableReferenceType  { get; set; }
-        
-        public int? SomeNullableValueType  { get; set; }
-        public int SomeNonNullableValueType { get; set; }
+        // TODO: meh... we're allowed to cast this to null anyway!
+        public string? SomeNullableReferenceType { get; }
+        public string SomeNonNullableReferenceType { get; }
+        public int? SomeNullableValueType  { get; }
+        public int SomeNonNullableValueType { get; }
+
+        public TestRequest2(string? someNullableReferenceType, string someNonNullableReferenceType, int? someNullableValueType, int someNonNullableValueType)
+        {
+            SomeNullableReferenceType = someNullableReferenceType;
+            SomeNonNullableReferenceType = someNonNullableReferenceType;
+            SomeNullableValueType = someNullableValueType;
+            SomeNonNullableValueType = someNonNullableValueType;
+        }
     }
 }

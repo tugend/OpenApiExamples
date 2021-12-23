@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ExampledApi;
+using ExampledApi.Controllers.Auction.TestEndpoint;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Tests.TestHelpers.Builders;
 using Tests.TestHelpers.Extensions;
@@ -18,25 +19,110 @@ namespace ExampledApiTests
             .CreateClient();
 
         [Fact]
-        public async Task GetForecastV1()
+        public async Task Ok__Given__All_Values_Defined()
         {
-            // Arrange
-            var message = HttpRequestMessageBuilder
-                .Create(HttpMethod.Put, "api/v1/food-stock/auctions/items", new
-                {
-                    SomeNullableReferenceType = (string?)null,
-                    SomeNonNullableReferenceType = "something",
-                    SomeNullableValueType = (int?)null,
-                    SomeNonNullableValueType = 5
-                })
-                .Build();
-
-            // ACT
-            var (statusCode, content, response) = await _client
-                .SendAsync(message)
-                .Read();
+            var message = CreateMessage(new
+            {
+                SomeNonNullableReferenceType = "something",
+                SomeNonNullableValueType = 5,
+                SomeNullableReferenceType = "anotherSomething",
+                SomeNullableValueType = 7
+            });
             
-            Assert.Equal(statusCode, HttpStatusCode.OK);
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.OK);
+        }
+        
+        [Fact]
+        public async Task Ok__Given__Missing_Nullable_Values()
+        {
+            var message = CreateMessage(new
+            {
+                SomeNonNullableReferenceType = "something",
+                SomeNonNullableValueType = 5
+            });
+            
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.OK);
+        }
+        
+        [Fact]
+        public async Task BadRequest__Given__Missing_NonNullableReferenceType()
+        {
+            var message = CreateMessage(new
+            {
+                SomeNonNullableValueType = 5
+            });
+            
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.BadRequest);
+        }
+        
+        [Fact]
+        public async Task BadRequest__Given__Missing_NonNullableValueType()
+        {
+            var message = CreateMessage(new
+            {
+                SomeNonNullableReferenceType = "something"
+            });
+            
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.BadRequest);
+        }
+        
+        [Fact]
+        public async Task BadRequest_Given_Null_NullableTypes()
+        {
+            var message = CreateMessage(new
+            {
+                SomeNonNullableReferenceType = "something",
+                SomeNonNullableValueType = 5,
+                SomeNullableReferenceType = (string?)null,
+                SomeNullableValueType = (int?)null
+            });
+            
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.OK);
+        }
+        
+        [Fact]
+        public async Task BadRequest__Given__Null_NonNullableReferenceType()
+        {
+            var message = CreateMessage(new
+            {
+                SomeNonNullableReferenceType = (string?)null,
+                SomeNonNullableValueType = 5,
+            });
+            
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.BadRequest);
+        }
+        
+        [Fact]
+        public async Task BadRequest__Given__Null_NonNullableValueType()
+        {
+            var message = CreateMessage(new
+            {
+                SomeNonNullableReferenceType = "something",
+                SomeNonNullableValueType = (int?)null,
+            });
+            
+            await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.BadRequest);
+        }
+
+        private static HttpRequestMessage CreateMessage(object body)
+        {
+            return HttpRequestMessageBuilder
+                .Create(HttpMethod.Put, "api/v1/food-stock/auctions/items", body)
+                .Build();
         }
     }
 }

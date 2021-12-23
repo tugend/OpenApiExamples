@@ -1,12 +1,6 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using ApiVersioning.Infrastructure.Options.SwaggerGen;
-using ExampledApi.Controllers.Auction;
 using ExampledApi.Controllers.Infrastructure;
 using ExampledApi.Utils;
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using JsonException = System.Text.Json.JsonException;
 
 namespace ExampledApi
 {
@@ -42,9 +35,10 @@ namespace ExampledApi
                 })
                 .AddNewtonsoftJson(c =>
                 {
-                    c.SerializerSettings.ContractResolver = new RequiredPropertiesContractResolver();
+                    c.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
+                    c.SerializerSettings.ContractResolver = new MakeNonNullableValueTypesRequiredPropertiesContractResolver();
                     // c.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
-                    // c.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    // c.SerializerSettings.NullValueHandling = NullValueHandling.Include;
                     // c.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
                 });
             
@@ -64,12 +58,11 @@ namespace ExampledApi
                 // Use limited namespacing
                 c.CustomSchemaIds(x => x.FullName?.StripUntil('.', 3));
 
-                https://stackoverflow.com/questions/46576234/swashbuckle-make-non-nullable-properties-required
-                // c.SupportNonNullableReferenceTypes(); // Sets Nullable flags appropriately.              
+                // https://stackoverflow.com/questions/46576234/swashbuckle-make-non-nullable-properties-required
+                c.SupportNonNullableReferenceTypes(); // Sets Nullable flags appropriately.              
                 c.UseAllOfToExtendReferenceSchemas(); // Allows $ref enums to be nullable
                 c.UseAllOfForInheritance();  // Allows $ref objects to be nullable
-                // c.DocumentFilter<RemoveDefaultApiVersionRouteDocumentFilter>();
-                c.SchemaFilter<AddSwaggerRequiredSchemaFilter>();
+                c.SchemaFilter<AddSwaggerMakeNonNullableTypesRequiredSchemaFilter>();
             });
         }
 
@@ -90,24 +83,24 @@ namespace ExampledApi
     }
     
     
-    public class RequiredPropertiesContractResolver : DefaultContractResolver
+    public class MakeNonNullableValueTypesRequiredPropertiesContractResolver : DefaultContractResolver
     {
         protected override JsonObjectContract CreateObjectContract(Type objectType)
         {
             // https://newbedev.com/asp-net-core-require-non-nullable-types
             var contract = base.CreateObjectContract(objectType);
-
             foreach (var contractProperty in contract.Properties)
             {
-                if (Nullable.GetUnderlyingType(contractProperty.PropertyType) != null)
+                if (Nullable.GetUnderlyingType(contractProperty.PropertyType!) != null)
                 {
                     continue;
                 }
 
-                contractProperty.NullValueHandling = NullValueHandling.Ignore;
-                contractProperty.Required = Required.Always;
+                if (contractProperty.PropertyType!.IsValueType)
+                {
+                    contractProperty.Required = Required.Always;
+                }
             }
-
             return contract;
         }
     }
