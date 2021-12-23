@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Filters;
-using WebApi.Infrastructure.Swagger.Examples;
 
 namespace ExampledApi.Controllers.Auction.TestEndpoint
 {
@@ -12,13 +11,22 @@ namespace ExampledApi.Controllers.Auction.TestEndpoint
     public class TestEndpoint
     {
         // [SwaggerRequestExample(typeof(TestRequest2), typeof(TestRequest2ExampleProvider))] // not neccessary
-        [HttpPut("items")]
-        public ActionResult<TestResponse> PutBid(TestRequest2 request)
+        /// <remarks>
+        /// PUT /items/6b30a699-80de-418d-b0d1-66ba024b162a
+        /// </remarks>
+        [HttpPut("auction/{auctionId:guid}/items/{itemId:guid}")]
+        public ActionResult<TestResponse> PutBid(Guid itemId, TestRequest2 request)
+        {
+            return new TestResponse("foo", "bar", 1, 2);
+        }
+        
+        [HttpGet("auction/{auctionId:guid}/items/{itemId:guid}")]
+        public ActionResult<TestResponse> PutBid(Guid itemId)
         {
             return new TestResponse("foo", "bar", 1, 2);
         }
     }
-
+    [PublicAPI]
     public class TestResponse
     {
         /// <example>Men's basketball shoes</example>
@@ -36,6 +44,7 @@ namespace ExampledApi.Controllers.Auction.TestEndpoint
         }
     }
     
+    [PublicAPI]
     // https://stackoverflow.com/questions/29655502/json-net-require-all-properties-on-deserialization/29660550
     public record TestRequest2
     {
