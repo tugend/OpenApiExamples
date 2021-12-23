@@ -21,9 +21,13 @@
     <ItemGroup>
       <Compile Remove="Controllers\Auction\PostNewItemForAuction.cs" />
       <Compile Remove="Controllers\Auction\PutBidEndpoint.cs" />
+      <Compile Include="Controllers\Auction\GetAuctionedItems\Endpoint.cs" />
+      <Compile Include="Controllers\Auction\PostNewItemForAuction\Endpoint.cs" />
+      <Compile Include="Controllers\Auction\PutBid\Endpoint.cs" />
       <Compile Remove="Controllers\Auction\GetAuctionedItems\**" />
       <Compile Remove="Controllers\Auction\PostNewItemForAuction\**" />
       <Compile Remove="Controllers\Auction\PutBid\**" />
+      <Compile Remove="Domain\FakeAuctionItemGenerator.cs" />
     </ItemGroup>
 
     <ItemGroup>
