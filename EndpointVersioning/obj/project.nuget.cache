@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "m1qHVluZck+ZOpC0Yj2myO2EKI6yJFNZh9D5opTD7gvcMGhqszhL9t/2RfOJimqn2TorMalN8RWH7/5KXb+FEw==",
+  "dgSpecHash": "1WmKgdrTIrr+juwI1VXn7XbbI7b+M6vr/HFMw9hUUdp+3NzyUQTzY94KNZcOBFUq+lT03LLfgYvPMwAWAk9ZwQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\tugen\\Documents\\GitHub\\OpenApiExamples\\EndpointVersioning\\EndpointVersioning.csproj",
   "expectedPackageFiles": [

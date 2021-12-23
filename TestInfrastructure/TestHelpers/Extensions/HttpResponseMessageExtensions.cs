@@ -8,12 +8,21 @@ namespace Tests.TestHelpers.Extensions
 {
     public static class HttpResponseMessageExtensions
     {
+        public static async Task<(HttpStatusCode statusCode, string content, HttpResponseMessage response)> Read(this Task<HttpResponseMessage> pendingResponse)
+        {
+            var response = await pendingResponse;
+            
+            var statusCode = response.StatusCode;
+            var content = await pendingResponse.ReadContent();
+            
+            return (statusCode, content, response);
+        }
+        
         public static async Task<HttpResponseMessage> AssertStatusCode(this Task<HttpResponseMessage> pendingResponse, HttpStatusCode expectedCode)
         {
             var response = await pendingResponse;
             
             var statusCode = response.StatusCode;
-
             Assert.Equal(expectedCode, statusCode);
             
             return response;
