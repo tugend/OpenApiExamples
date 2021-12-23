@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Filters;
+using WebApi.Infrastructure.Swagger.Examples;
 
 namespace ExampledApi.Controllers.Auction.TestEndpoint
 {
@@ -8,26 +11,28 @@ namespace ExampledApi.Controllers.Auction.TestEndpoint
     [Route("api/v1/food-stock/auctions")]  
     public class TestEndpoint
     {
+        // [SwaggerRequestExample(typeof(TestRequest2), typeof(TestRequest2ExampleProvider))] // not neccessary
         [HttpPut("items")]
-        public ActionResult PutBid(TestRequest2 request)
+        public ActionResult<TestResponse> PutBid(TestRequest2 request)
         {
-            return new OkResult();
+            return new TestResponse("foo", "bar", 1, 2);
         }
     }
 
-    public class TestRequest
+    public class TestResponse
     {
-        public readonly string? SomeNullableReferenceType;
-        public readonly string SomeNonNullableReferenceType;
-        public readonly int SomeNullableValueType;
-        public readonly int? SomeNonNullableValueType;
+        /// <example>Men's basketball shoes</example>
+        public string? SomeNullableReferenceType { get; }
+        public string SomeNonNullableReferenceType { get; }
+        public int? SomeNullableValueType  { get; }
+        public int SomeNonNullableValueType { get; }
 
-        public TestRequest(string? someNullableReferenceType, string someNonNullableReferenceType, int someNullableValueType, int? someNonNullableValueType)
+        public TestResponse(string? someNullableReferenceType, string someNonNullableReferenceType, int someNullableValueType, int? someNonNullableValueType)
         {
             SomeNullableReferenceType = someNullableReferenceType;
             SomeNonNullableReferenceType = someNonNullableReferenceType;
-            SomeNullableValueType = someNullableValueType;
-            SomeNonNullableValueType = someNonNullableValueType;
+            SomeNullableValueType = someNonNullableValueType;
+            SomeNonNullableValueType = someNullableValueType;
         }
     }
     
@@ -36,6 +41,9 @@ namespace ExampledApi.Controllers.Auction.TestEndpoint
     {
         // TODO: meh... we're allowed to cast this to null anyway!
         public string? SomeNullableReferenceType { get; }
+     
+        /// <example>Men's basketball shoes</example>
+        /// TODO: either use  example or AddSwaggerExamplesFromAssemblyOf
         public string SomeNonNullableReferenceType { get; }
         public int? SomeNullableValueType  { get; }
         public int SomeNonNullableValueType { get; }

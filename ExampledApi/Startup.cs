@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace ExampledApi
 {
@@ -63,7 +64,12 @@ namespace ExampledApi
                 c.UseAllOfToExtendReferenceSchemas(); // Allows $ref enums to be nullable
                 c.UseAllOfForInheritance();  // Allows $ref objects to be nullable
                 c.SchemaFilter<AddSwaggerMakeNonNullableTypesRequiredSchemaFilter>();
+                
+                // c.ExampleFilters(); // TODO: what does each of these do?
             });
+            
+            // services.AddSwaggerExamples(); // TODO: what does each of these do?
+            // services.AddSwaggerExamplesFromAssemblyOf<Startup>(); // TODO: what does each of these do?
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
