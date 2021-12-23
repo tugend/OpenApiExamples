@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using ApiVersioning.Infrastructure.Options.SwaggerGen;
+﻿using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
