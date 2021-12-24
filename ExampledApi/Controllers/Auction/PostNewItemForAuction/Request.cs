@@ -1,25 +1,28 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using ExampledApi.Controllers.Auction.Common;
+using JetBrains.Annotations;
 
 namespace ExampledApi.Controllers.Auction.PostNewItemForAuction
 {
+    [PublicAPI]
     public record Request
     {
-        [Required]
-        public Guid SellerId { get; init; }
-        // TODO: require all fields to be attribute marked, and figure out how to 
-        // use both nullable and non-nullable annotations and responses,
-        // use both required and optional annotations for requests
-        
-        [Required]
+        /// <example>606</example>
+        /// TODO: reference lookup for the remaining validation annotations
+        [RegularExpression(".{3}.*", ErrorMessage = "Seller id must be at least three characters.")]
+        public string SellerId { get; init; } = null!;
+     
+        /// <example>250</example>
         public int MinimumBidDkk { get; init; }
         
-        [Required]
+        /// <example>5</example>
         public decimal QuantityKg { get; init; }
         
-        [Required]
+        /// <example>Gold</example>
         public RiceQuality RiceQuality { get; init; }
+        
+        /// <example>Johnson Groceries VA</example>
+        public string? SellerName { get; init; }
     }
 }

@@ -2,7 +2,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ExampledApi;
-using ExampledApi.Controllers.Auction.TestEndpoint;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Tests.TestHelpers.Builders;
 using Tests.TestHelpers.Extensions;

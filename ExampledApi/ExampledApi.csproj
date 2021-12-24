@@ -18,36 +18,6 @@
       <Folder Include="Documentation" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Controllers\Auction\PostNewItemForAuction.cs" />
-      <Compile Remove="Controllers\Auction\PutBidEndpoint.cs" />
-      <Compile Include="Controllers\Auction\GetAuctionedItems\Endpoint.cs" />
-      <Compile Include="Controllers\Auction\PostNewItemForAuction\Endpoint.cs" />
-      <Compile Include="Controllers\Auction\PutBid\Endpoint.cs" />
-      <Compile Remove="Controllers\Auction\GetAuctionedItems\**" />
-      <Compile Remove="Controllers\Auction\PostNewItemForAuction\**" />
-      <Compile Remove="Controllers\Auction\PutBid\**" />
-      <Compile Remove="Domain\FakeAuctionItemGenerator.cs" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Controllers\Auction\GetAuctionedItems\**" />
-      <EmbeddedResource Remove="Controllers\Auction\PostNewItemForAuction\**" />
-      <EmbeddedResource Remove="Controllers\Auction\PutBid\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Controllers\Auction\GetAuctionedItems\**" />
-      <None Remove="Controllers\Auction\PostNewItemForAuction\**" />
-      <None Remove="Controllers\Auction\PutBid\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="Controllers\Auction\GetAuctionedItems\**" />
-      <Content Remove="Controllers\Auction\PostNewItemForAuction\**" />
-      <Content Remove="Controllers\Auction\PutBid\**" />
-    </ItemGroup>
-
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>

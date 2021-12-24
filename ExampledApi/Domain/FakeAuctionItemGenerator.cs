@@ -1,5 +1,4 @@
 ﻿using System;
-using ExampledApi.Controllers.Auction;
 using ExampledApi.Controllers.Auction.Common;
 using ExampledApi.Controllers.Auction.GetAuctionedItems;
 using static ExampledApi.Domain.FakeHelper;

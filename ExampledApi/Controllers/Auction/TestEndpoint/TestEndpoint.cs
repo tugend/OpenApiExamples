@@ -1,31 +1,29 @@
-﻿using System;
-using JetBrains.Annotations;
-using Microsoft.AspNetCore.Mvc;
+﻿using JetBrains.Annotations;
 
 namespace ExampledApi.Controllers.Auction.TestEndpoint
 {
-    [ApiController]
-    [Consumes("application/json")]
-    [Produces("application/json")]
-    [Route("api/v1/food-stock/auctions")]  
-    public class TestEndpoint
-    {
-        // [SwaggerRequestExample(typeof(TestRequest2), typeof(TestRequest2ExampleProvider))] // not neccessary
-        /// <remarks>
-        /// PUT /items/6b30a699-80de-418d-b0d1-66ba024b162a
-        /// </remarks>
-        [HttpPut("auction/{auctionId:guid}/items/{itemId:guid}")]
-        public ActionResult<TestResponse> PutBid(Guid itemId, TestRequest2 request)
-        {
-            return new TestResponse("foo", "bar", 1, 2);
-        }
-        
-        [HttpGet("auction/{auctionId:guid}/items/{itemId:guid}")]
-        public ActionResult<TestResponse> PutBid(Guid itemId)
-        {
-            return new TestResponse("foo", "bar", 1, 2);
-        }
-    }
+    // [ApiController]
+    // [Consumes("application/json")]
+    // [Produces("application/json")]
+    // [Route("api/v1/food-stock/auctions")]  
+    // public class TestEndpoint
+    // {
+    //     // [SwaggerRequestExample(typeof(TestRequest2), typeof(TestRequest2ExampleProvider))] // not neccessary
+    //     /// <remarks>
+    //     /// PUT /items/6b30a699-80de-418d-b0d1-66ba024b162a
+    //     /// </remarks>
+    //     [HttpPut("auction/{auctionId:guid}/items/{itemId:guid}")]
+    //     public ActionResult<TestResponse> PutBid(Guid itemId, TestRequest2 request)
+    //     {
+    //         return new TestResponse("foo", "bar", 1, 2);
+    //     }
+    //     
+    //     [HttpGet("auction/{auctionId:guid}/items/{itemId:guid}")]
+    //     public ActionResult<TestResponse> PutBid(Guid itemId)
+    //     {
+    //         return new TestResponse("foo", "bar", 1, 2);
+    //     }
+    // }
     [PublicAPI]
     public class TestResponse
     {

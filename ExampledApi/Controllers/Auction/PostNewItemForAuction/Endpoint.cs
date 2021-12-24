@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using ExampledApi.Controllers.Auction.GetAuctionedItems;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExampledApi.Controllers.Auction.PostNewItemForAuction
