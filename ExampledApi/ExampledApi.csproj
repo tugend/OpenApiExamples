@@ -9,7 +9,9 @@
         <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+        <PackageReference Include="NSwag.Annotations" Version="13.15.5" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.3" />
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore.Filters.Abstractions" Version="7.0.2" />
     </ItemGroup>

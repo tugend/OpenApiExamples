@@ -32,7 +32,11 @@ namespace ExampledApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExampledApi v1"));
+            app.UseSwaggerUI(c =>
+            {
+                // c.MaxDisplayedTags(1);
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExampledApi v1");
+            });
             
             app.UseHttpsRedirection();
             app.UseRouting();

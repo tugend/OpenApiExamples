@@ -1,6 +1,6 @@
 ﻿using System;
-using ExampledApi.Controllers.Auction.Common;
-using ExampledApi.Controllers.Auction.GetAuctionedItems;
+using ExampledApi.Api.Auction.Common;
+using ExampledApi.Api.Auction.GetAuctionedItems;
 using static ExampledApi.Domain.FakeHelper;
 
 namespace ExampledApi.Domain

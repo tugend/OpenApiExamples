@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ExampledApi.Controllers.Test
+namespace ExampledApi.Api.Test
 {
+    [DisplayName("Test")] // TODO: alternative just use some auto formatting to extract the right name from the namespace?
     [PublicAPI]
     [ApiController]
     [Consumes("application/json")]

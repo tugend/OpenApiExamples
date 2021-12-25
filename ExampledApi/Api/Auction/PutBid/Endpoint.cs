@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace ExampledApi.Controllers.Auction.PutBid
+namespace ExampledApi.Api.Auction.PutBid
 {
     public class Endpoint : AuctionController
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using ExampledApi.Controllers.Auction.Common;
+using ExampledApi.Api.Auction.Common;
 using JetBrains.Annotations;
 
-namespace ExampledApi.Controllers.Auction.GetAuctionedItems
+namespace ExampledApi.Api.Auction.GetAuctionedItems
 {
     [PublicAPI]
     public record Response

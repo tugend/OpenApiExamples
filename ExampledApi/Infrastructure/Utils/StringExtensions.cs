@@ -21,5 +21,21 @@ namespace ExampledApi.Infrastructure.Utils
                 ? target 
                 : target[targetIndex..];
         }
+        
+        public static string StripAfter(this string target, char match, int n)
+        {
+            var nthMatch = target
+                .Select((x, i) => new { Value = x, Index = i})
+                .SkipWhile(x => x.Value != match || --n > 0)
+                .FirstOrDefault();
+            
+            if (nthMatch == null) 
+                return target;
+            
+            var targetIndex = nthMatch
+                .Index;
+
+            return target[..targetIndex];
+        }
     }
 }

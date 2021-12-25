@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ExampledApi.Controllers.Infrastructure
+namespace ExampledApi.Api.Infrastructure
 {
     [UsedImplicitly]
     public class MakeNonNullableTypesRequiredSchemaFilter : ISchemaFilter

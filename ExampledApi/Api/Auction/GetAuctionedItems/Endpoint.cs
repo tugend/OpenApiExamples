@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static ExampledApi.Domain.FakeAuctionItemGenerator;
 
-namespace ExampledApi.Controllers.Auction.GetAuctionedItems
+namespace ExampledApi.Api.Auction.GetAuctionedItems
 {
     public class Endpoint : AuctionController
     {

@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace ExampledApi.Controllers.Auction.Common
+namespace ExampledApi.Api.Auction.Common
 {
     [PublicAPI]
     public enum RiceQuality

@@ -1,0 +1,339 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Auction API",
+    "description": "The set of supported endpoints for integrating with the amazing FOOBAR auction site®",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/food-stock/auctions/{auctionId}/items/{itemId}": {
+      "put": {
+        "tags": [
+          "Auction"
+        ],
+        "summary": "Bid on a selected auction item.",
+        "description": "Please note only bids equal or greater than the minimum bid for the item are accepted.",
+        "operationId": "PutBid",
+        "parameters": [
+          {
+            "name": "auctionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutBid.Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/food-stock/auctions/{auctionId}/items": {
+      "post": {
+        "tags": [
+          "Auction"
+        ],
+        "summary": "Register an item to be sold at the given auction.",
+        "operationId": "PostItemForAuction",
+        "parameters": [
+          {
+            "name": "auctionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostNewItemForAuction.Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostNewItemForAuction.Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Auction"
+        ],
+        "summary": "Get all items for sale at the auction defined by auctionId.",
+        "operationId": "GetAuctionedItems",
+        "parameters": [
+          {
+            "name": "auctionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetAuctionedItems.Response"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/test": {
+      "post": {
+        "tags": [
+          "Test"
+        ],
+        "operationId": "Post",
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Common.RiceQuality": {
+        "enum": [
+          "Diamond",
+          "Gold",
+          "Silver",
+          "Bronze",
+          "Cobber",
+          "Iron"
+        ],
+        "type": "string"
+      },
+      "GetAuctionedItems.Response": {
+        "required": [
+          "itemId",
+          "quantityKg",
+          "riceQuality"
+        ],
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "f72c083d-6df7-4130-8c87-0662186eae3f"
+          },
+          "minimumBidDkk": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "example": 999
+          },
+          "quantityKg": {
+            "type": "number",
+            "format": "double",
+            "example": 100
+          },
+          "riceQuality": {
+            "$ref": "#/components/schemas/Common.RiceQuality"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostNewItemForAuction.Request": {
+        "required": [
+          "quantityKg",
+          "riceQuality",
+          "sellerId"
+        ],
+        "type": "object",
+        "properties": {
+          "sellerId": {
+            "pattern": ".{3}.*",
+            "type": "string",
+            "example": "606"
+          },
+          "minimumBidDkk": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "example": 250
+          },
+          "quantityKg": {
+            "type": "number",
+            "format": "double",
+            "example": 5
+          },
+          "riceQuality": {
+            "$ref": "#/components/schemas/Common.RiceQuality"
+          },
+          "sellerName": {
+            "type": "string",
+            "nullable": true,
+            "example": "Johnson Groceries VA"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostNewItemForAuction.Response": {
+        "required": [
+          "itemId",
+          "registrationTime",
+          "sellerId"
+        ],
+        "type": "object",
+        "properties": {
+          "sellerId": {
+            "type": "string"
+          },
+          "sellerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemId": {
+            "type": "string",
+            "readOnly": true
+          },
+          "registrationTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PutBid.Request": {
+        "required": [
+          "amountDkk"
+        ],
+        "type": "object",
+        "properties": {
+          "amountDkk": {
+            "type": "integer",
+            "format": "int32",
+            "example": 750
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestRequest": {
+        "required": [
+          "someNonNullableReferenceType",
+          "someNonNullableValueType"
+        ],
+        "type": "object",
+        "properties": {
+          "someNullableReferenceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "someNonNullableReferenceType": {
+            "type": "string"
+          },
+          "someNullableValueType": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "someNonNullableValueType": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestResponse": {
+        "required": [
+          "someNonNullableReferenceType",
+          "someNonNullableValueType"
+        ],
+        "type": "object",
+        "properties": {
+          "someNullableReferenceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "someNonNullableReferenceType": {
+            "type": "string"
+          },
+          "someNullableValueType": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "someNonNullableValueType": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

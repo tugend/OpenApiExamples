@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ExampledApi.Controllers.Auction.Common;
+using ExampledApi.Api.Auction.Common;
 using JetBrains.Annotations;
 
-namespace ExampledApi.Controllers.Auction.PostNewItemForAuction
+namespace ExampledApi.Api.Auction.PostNewItemForAuction
 {
     [PublicAPI]
     public record Request

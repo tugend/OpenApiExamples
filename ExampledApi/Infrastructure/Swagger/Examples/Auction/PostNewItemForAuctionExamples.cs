@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ExampledApi.Controllers.Auction.Common;
-using ExampledApi.Controllers.Auction.PostNewItemForAuction;
+using ExampledApi.Api.Auction.Common;
+using ExampledApi.Api.Auction.PostNewItemForAuction;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace ExampledApi.Infrastructure.Swagger.Examples.Auction

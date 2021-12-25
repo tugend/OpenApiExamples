@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace ExampledApi.Controllers.Test
+namespace ExampledApi.Api.Test
 {
     [PublicAPI]
     public class TestResponse

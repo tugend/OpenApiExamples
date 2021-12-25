@@ -1,4 +1,4 @@
-﻿namespace ExampledApi.Controllers.Auction.PutBid
+﻿namespace ExampledApi.Api.Auction.PutBid
 {
     public record Request
     {
