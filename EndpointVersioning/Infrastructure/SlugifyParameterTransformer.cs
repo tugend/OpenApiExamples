@@ -5,7 +5,7 @@ namespace EndpointVersioning.Infrastructure
 {
     public class SlugifyParameterTransformer : IOutboundParameterTransformer
     {
-        public string TransformOutbound(object value)
+        public string? TransformOutbound(object? value)
         {
             // Slugify value
             return value == null 

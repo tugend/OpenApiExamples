@@ -53,7 +53,7 @@ namespace ApiVersioning.Infrastructure.Options.SwaggerGen
                 // it's the initial version. Note: this affects which routes can be called!
                 
                 // api/weather/forecasts (for v2+ api documents)
-                var route = "/" + apiDescription.RelativePath.TrimEnd('/');
+                var route = "/" + apiDescription.RelativePath?.TrimEnd('/');
                 swaggerDoc.Paths.Remove(route);
             }  
         }  

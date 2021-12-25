@@ -1,15 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">ShowAndRun</s:String>
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\tugen\AppData\Local\JetBrains\Rider2021.2\resharper-host\temp\Rider\vAny\CoverageData\_OpenApiExamples.474780219\Snapshot\snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=15069efc_002Dbd6a_002D45ee_002D9e67_002D080095abbae4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetForecast" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
-    &lt;ProjectFile&gt;94C65BD0-5C52-4672-9566-60FFA4F500AE/f:WebApiTests.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;81E84926-8B89-4A40-AB8A-87A609C94960/f:WebApiTests.cs&lt;/ProjectFile&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;xUnit::61FAD635-D51E-4B50-969E-369309740120::net5.0::ApiVersioningTests.WebApiTests&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::8245EAEB-AC78-47C6-A176-357B971F8167::net6.0::ClientStubGeneratorTests.UnitTest1.Test1&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	
-	
-	
-	</wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

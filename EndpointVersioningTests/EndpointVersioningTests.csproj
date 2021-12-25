@@ -1,11 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
 
         <RootNamespace>EndpointVersioningTests</RootNamespace>
+
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,7 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EndpointVersioning\EndpointVersioning.csproj" />
-      <ProjectReference Include="..\Tests\Tests.csproj" />
+      <ProjectReference Include="..\TestInfrastructure\TestInfrastructure.csproj" />
     </ItemGroup>
 
 </Project>
