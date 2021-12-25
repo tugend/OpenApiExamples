@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static ExampledApi.Domain.FakeAuctionItemGenerator;
 
@@ -10,6 +11,7 @@ namespace ExampledApi.Controllers.Auction.GetAuctionedItems
         /// <summary>
         /// Get all items for sale at the auction defined by <paramref name="auctionId"/>.
         /// </summary>
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpGet("items")]
         public ActionResult<List<Response>> GetAuctionedItems(Guid auctionId)
         {
@@ -19,13 +21,13 @@ namespace ExampledApi.Controllers.Auction.GetAuctionedItems
                 return NotFound("Unknown auction id");
             }
             
-            return new List<Response>
+            return new CreatedResult($"/items/{Guid.NewGuid()}", new List<Response>
             {
                 FakeAuctionedFoodStockResponse(),
                 FakeAuctionedFoodStockResponse(),
                 FakeAuctionedFoodStockResponse(),
                 FakeAuctionedFoodStockResponse()
-            };
+            });
         }
     }
 }

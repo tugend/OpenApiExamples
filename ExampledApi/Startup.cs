@@ -5,24 +5,16 @@ using ExampledApi.Controllers.Infrastructure;
 using ExampledApi.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace ExampledApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,10 +28,7 @@ namespace ExampledApi
                 .AddNewtonsoftJson(c =>
                 {
                     c.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
-                    c.SerializerSettings.ContractResolver = new MakeNonNullableValueTypesRequiredPropertiesContractResolver();
-                    // c.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
-                    // c.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-                    // c.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error;
+                    c.SerializerSettings.ContractResolver = new MakeNonNullableValueTypesRequiredResolver();
                 });
             
             services.AddSwaggerGen(c =>
@@ -60,19 +49,17 @@ namespace ExampledApi
 
                 // https://stackoverflow.com/questions/46576234/swashbuckle-make-non-nullable-properties-required
                 c.SupportNonNullableReferenceTypes(); // Sets Nullable flags appropriately.              
-                c.UseAllOfToExtendReferenceSchemas(); // Allows $ref enums to be nullable
-                c.UseAllOfForInheritance();  // Allows $ref objects to be nullable
-                c.SchemaFilter<AddSwaggerMakeNonNullableTypesRequiredSchemaFilter>();
+                // c.UseAllOfToExtendReferenceSchemas(); // Allows $ref enums to be nullable
+                // c.UseAllOfForInheritance();  // Allows $ref objects to be nullable
+                c.SchemaFilter<MakeNonNullableTypesRequiredSchemaFilter>();
                 
-                // c.ExampleFilters(); // TODO: what does each of these do?
+                // c.ExampleFilters(); 
             });
             
-            
-            // services.AddSwaggerExamples(); // TODO: what does each of these do?
-            // services.AddSwaggerExamplesFromAssemblyOf<Startup>(); // TODO: what does each of these do?
+            // services.AddSwaggerExamples();
+            // services.AddSwaggerExamplesFromAssemblyOf<Startup>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -85,29 +72,6 @@ namespace ExampledApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-        }
-    }
-    
-    
-    public class MakeNonNullableValueTypesRequiredPropertiesContractResolver : DefaultContractResolver
-    {
-        protected override JsonObjectContract CreateObjectContract(Type objectType)
-        {
-            // https://newbedev.com/asp-net-core-require-non-nullable-types
-            var contract = base.CreateObjectContract(objectType);
-            foreach (var contractProperty in contract.Properties)
-            {
-                if (Nullable.GetUnderlyingType(contractProperty.PropertyType!) != null)
-                {
-                    continue;
-                }
-
-                if (contractProperty.PropertyType!.IsValueType)
-                {
-                    contractProperty.Required = Required.Always;
-                }
-            }
-            return contract;
         }
     }
 }

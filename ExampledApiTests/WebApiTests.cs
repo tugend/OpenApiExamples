@@ -57,6 +57,7 @@ namespace ExampledApiTests
             
             await _client
                 .SendAsync(message)
+                .Read()
                 .AssertStatusCode(HttpStatusCode.BadRequest);
         }
         
@@ -120,7 +121,7 @@ namespace ExampledApiTests
         private static HttpRequestMessage CreateMessage(object body)
         {
             return HttpRequestMessageBuilder
-                .Create(HttpMethod.Put, "api/v1/food-stock/auctions/items", body)
+                .Create(HttpMethod.Post, "api/v1/test/items", body)
                 .Build();
         }
     }

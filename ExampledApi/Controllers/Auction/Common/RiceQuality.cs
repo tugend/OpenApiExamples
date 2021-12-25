@@ -1,8 +1,8 @@
-﻿namespace ExampledApi.Controllers.Auction.Common
+﻿using JetBrains.Annotations;
+
+namespace ExampledApi.Controllers.Auction.Common
 {
-    /// <summary>
-    /// Quality of rice ranging from Diamond(best) to Iron(most humble)
-    /// </summary>
+    [PublicAPI]
     public enum RiceQuality
     {
         Diamond, Gold, Silver, Bronze, Cobber, Iron 

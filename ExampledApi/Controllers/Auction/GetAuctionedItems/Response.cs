@@ -19,7 +19,7 @@ namespace ExampledApi.Controllers.Auction.GetAuctionedItems
         /// <example>Iron</example>
         public RiceQuality RiceQuality { get; }
 
-        public Response(Guid itemId, int minimumBidDkk, decimal quantityKg, RiceQuality riceQuality)
+        public Response(Guid itemId, int? minimumBidDkk, decimal quantityKg, RiceQuality riceQuality)
         {
             ItemId = itemId;
             MinimumBidDkk = minimumBidDkk;

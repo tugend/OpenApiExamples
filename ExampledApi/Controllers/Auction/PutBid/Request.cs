@@ -1,8 +1,5 @@
-﻿using JetBrains.Annotations;
-
-namespace ExampledApi.Controllers.Auction.PutBid
+﻿namespace ExampledApi.Controllers.Auction.PutBid
 {
-    [PublicAPI]
     public record Request
     {
         /// <example>750</example>

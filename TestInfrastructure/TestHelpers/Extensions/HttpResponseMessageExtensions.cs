@@ -18,6 +18,16 @@ namespace Tests.TestHelpers.Extensions
             return (statusCode, content, response);
         }
         
+        public static async Task<(HttpStatusCode statusCode, string content, HttpResponseMessage response)> AssertStatusCode(this Task<(HttpStatusCode statusCode, string content, HttpResponseMessage response)> pendingResponse, HttpStatusCode expectedCode)
+        {
+            var response = await pendingResponse;
+            
+            var statusCode = response.statusCode;
+            Assert.Equal(expectedCode, statusCode);
+            
+            return response;
+        }
+        
         public static async Task<HttpResponseMessage> AssertStatusCode(this Task<HttpResponseMessage> pendingResponse, HttpStatusCode expectedCode)
         {
             var response = await pendingResponse;

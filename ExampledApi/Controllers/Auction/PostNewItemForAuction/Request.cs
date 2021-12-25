@@ -1,5 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 using ExampledApi.Controllers.Auction.Common;
 using JetBrains.Annotations;
 
@@ -9,14 +10,14 @@ namespace ExampledApi.Controllers.Auction.PostNewItemForAuction
     public record Request
     {
         /// <example>606</example>
-        /// TODO: reference lookup for the remaining validation annotations
         [RegularExpression(".{3}.*", ErrorMessage = "Seller id must be at least three characters.")]
         public string SellerId { get; init; } = null!;
-     
+
         /// <example>250</example>
-        public int MinimumBidDkk { get; init; }
+        public int? MinimumBidDkk { get; init; }
         
         /// <example>5</example>
+        [Required]
         public decimal QuantityKg { get; init; }
         
         /// <example>Gold</example>
