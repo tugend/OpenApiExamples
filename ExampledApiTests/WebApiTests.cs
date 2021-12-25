@@ -121,7 +121,7 @@ namespace ExampledApiTests
         private static HttpRequestMessage CreateMessage(object body)
         {
             return HttpRequestMessageBuilder
-                .Create(HttpMethod.Post, "api/v1/test/items", body)
+                .Create(HttpMethod.Post, "api/v1/test", body)
                 .Build();
         }
     }

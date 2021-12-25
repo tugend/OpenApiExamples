@@ -3,7 +3,7 @@ using ExampledApi.Controllers.Auction.Common;
 using ExampledApi.Controllers.Auction.PostNewItemForAuction;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace ExampledApi.Swagger.Examples
+namespace ExampledApi.Infrastructure.Swagger.Examples.Auction
 {
     public class PostNewItemForAuctionExamplesProvider : IMultipleExamplesProvider<Request>
     {

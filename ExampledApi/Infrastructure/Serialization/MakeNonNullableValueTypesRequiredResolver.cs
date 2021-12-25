@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace ExampledApi
+namespace ExampledApi.Infrastructure.Serialization
 {
     public class MakeNonNullableValueTypesRequiredResolver : DefaultContractResolver
     {

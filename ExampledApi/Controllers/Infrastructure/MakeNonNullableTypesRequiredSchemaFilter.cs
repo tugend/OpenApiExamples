@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace ExampledApi.Controllers.Infrastructure
 {
+    [UsedImplicitly]
     public class MakeNonNullableTypesRequiredSchemaFilter : ISchemaFilter
     {
         /// <summary>
@@ -15,7 +17,7 @@ namespace ExampledApi.Controllers.Infrastructure
             {
                 return;
             }
-            foreach (var (key, value) in schema.Properties.Where(x => !x.Value.Nullable))
+            foreach (var (key, _) in schema.Properties.Where(x => !x.Value.Nullable))
             {
                 schema.Required.Add(key);
             }
