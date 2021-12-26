@@ -1,3 +1,4 @@
+using ApiVersioning.Infrastructure;
 using ApiVersioning.Infrastructure.Options;
 using ApiVersioning.Infrastructure.ServiceCollectionExtensions;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
@@ -22,6 +24,9 @@ namespace ApiVersioning
                 .AddTransient<IConfigureOptions<MvcOptions>, ConfigureMvc>()
                 .AddControllers();
 
+            services.TryAddEnumerable(ServiceDescriptor.Transient<IApiDescriptionProvider, SubgroupDescriptionProvider>());
+
+            
             services
                 .AddTransient<IConfigureOptions<ApiVersioningOptions>, ConfigureApiVersioning>()
                 .AddApiVersioning();

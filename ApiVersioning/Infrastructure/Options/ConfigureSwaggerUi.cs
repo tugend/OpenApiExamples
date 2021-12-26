@@ -8,28 +8,18 @@ namespace ApiVersioning.Infrastructure.Options
 {
     public class ConfigureSwaggerUi : IConfigureOptions<SwaggerUIOptions>
     {
-        private readonly IApiVersionDescriptionProvider _provider;
+        private readonly IApiDescriptionGroupCollectionProvider _provider;
 
-        public ConfigureSwaggerUi(IApiVersionDescriptionProvider provider) => _provider = provider;
+        public ConfigureSwaggerUi(IApiDescriptionGroupCollectionProvider provider) => _provider = provider;
         
         public void Configure(SwaggerUIOptions options)
         {
-            // Generate a web page at /{RoutePrefix}/index.html
-            // that display an api per api description.
-            // 
-            // Assumes per api description that the associated open api document
-            // can be found at {url}. This is usually set in SwaggerOptions.
-            //
-            // The name of each description as presented in the drop down
-            // selector is {documentName}.
-            options.RoutePrefix = "swagger";
-            
-            foreach (var description in _provider.ApiVersionDescriptions.OrderBy(x => x.GroupName))
+            foreach (var item in _provider.ApiDescriptionGroups.Items
+                .OrderBy(x => x.GroupName)
+                .ThenByDescending(x => x.Items[0].GetApiVersion()))
             {
-                var url = $"/swagger/{description.GroupName}/swagger.json";
-                var documentName = description.GroupName;
-                options.SwaggerEndpoint(url,  documentName);
-            }        
+                options.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", item.GroupName);
+            }      
         }
     }
 }

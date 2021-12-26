@@ -41,16 +41,16 @@ namespace ApiVersioning.Infrastructure.Options.SwaggerGen
 * Breaking: TODO
 ";
         
-        public static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+        public static OpenApiInfo CreateInfoForApiVersion(string? groupGroupName, ApiDescription groupItem)
         {
             var info = new OpenApiInfo
             {
                 Title = "Weather API",
-                Version = description.ApiVersion.ToString(),
-                Description = GetDocumentation(description.ApiVersion)
+                Version = groupItem.GetApiVersion().ToString(),
+                Description = GetDocumentation(groupItem.GetApiVersion())
             };
 
-            if (description.IsDeprecated)
+            if (groupItem.IsDeprecated())
             {
                 info.Description += " This API version has been deprecated.";
             }

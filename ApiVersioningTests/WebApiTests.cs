@@ -38,7 +38,6 @@ namespace ApiVersioningTests
                 .AssertStatusCode(HttpStatusCode.OK);
         }
         
-        // TODO: why does this suddenly come out as wheather/wheather and fails the tests??
         [Theory]
         [InlineData("api/v3/weather/forecasts")]
         public async Task RangedForecastResourcesShouldBeAvailable(string path)
@@ -59,8 +58,8 @@ namespace ApiVersioningTests
         }
         
         [Theory]
-        [InlineData("api/v2/weather/reports")]
-        [InlineData("api/v3/weather/reports")]
+        [InlineData("api/v2/reports")]
+        [InlineData("api/v3/reports")]
         public async Task ReportResourcesShouldBeAvailable(string path)
         {
             // Arrange
@@ -79,8 +78,24 @@ namespace ApiVersioningTests
         }
         
         [Theory]
-        [InlineData("api/weather/reports")]
+        [InlineData("api/reports")]
         public async Task UnversionedReportResourcesShouldNotBeAvailable(string path)
+        {
+            // Arrange
+            var message = HttpRequestMessageBuilder
+                .Create(HttpMethod.Get, path)
+                .Build();
+
+            // ACT
+            var response = await _client
+                .SendAsync(message)
+                .AssertStatusCode(HttpStatusCode.NotFound)
+                .Deserialize<ErrorResponse>();
+        }
+        
+        [Theory]
+        [InlineData("api/v1/reports")]
+        public async Task NonSupportedVersionedReportResourcesShouldNotBeAvailable(string path)
         {
             // Arrange
             var message = HttpRequestMessageBuilder
@@ -94,26 +109,7 @@ namespace ApiVersioningTests
                 .Deserialize<ErrorResponse>();
             
             Assert.Equal(ErrorCodes.UnsupportedApiVersion, response.Error.Code);
-            Assert.Contains("The HTTP resource that matches the request URI 'http://localhost/api/weather/reports' is not supported.", response.Error.Message);
-        }
-        
-        [Theory]
-        [InlineData("api/v1/weather/reports")]
-        public async Task NonSupportedVersionedReportResourcesShouldNotBeAvailable(string path)
-        {
-            // Arrange
-            var message = HttpRequestMessageBuilder
-                .Create(HttpMethod.Get, path)
-                .Build();
-
-            // ACT
-            var response = await _client
-                .SendAsync(message)
-                .AssertStatusCode(HttpStatusCode.MethodNotAllowed)
-                .Deserialize<ErrorResponse>();
-            
-            Assert.Equal(ErrorCodes.UnsupportedApiVersion, response.Error.Code);
-            Assert.Contains("with API version '1' does not support HTTP method", response.Error.Message);
+            Assert.Contains("does not support the API version", response.Error.Message);
         }
         
         // Yeh.. this is a bit confusing.
