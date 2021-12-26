@@ -24,7 +24,6 @@ namespace Tests.TestHelpers.Extensions
             
             var statusCode = response.statusCode;
             Assert.Equal(expectedCode, statusCode);
-            
             return response;
         }
         

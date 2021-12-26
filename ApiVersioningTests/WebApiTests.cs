@@ -34,9 +34,11 @@ namespace ApiVersioningTests
             // ACT
             await _client
                 .SendAsync(message)
+                .Read()
                 .AssertStatusCode(HttpStatusCode.OK);
         }
         
+        // TODO: why does this suddenly come out as wheather/wheather and fails the tests??
         [Theory]
         [InlineData("api/v3/weather/forecasts")]
         public async Task RangedForecastResourcesShouldBeAvailable(string path)
