@@ -616,6 +616,175 @@ namespace ExampledApi
         }
     }
 
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public enum CommonRiceQuality
+    {
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Diamond")]
+        Diamond = 0,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Gold")]
+        Gold = 1,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Silver")]
+        Silver = 2,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Bronze")]
+        Bronze = 3,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Cobber")]
+        Cobber = 4,
+
+        [System.Runtime.Serialization.EnumMember(Value = @"Iron")]
+        Iron = 5,
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class GetAuctionedItemsResponse
+    {
+        [Newtonsoft.Json.JsonProperty("itemId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid ItemId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("minimumBidDkk", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? MinimumBidDkk { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("quantityKg", Required = Newtonsoft.Json.Required.Always)]
+        public double QuantityKg { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("riceQuality", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public CommonRiceQuality RiceQuality { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class PostNewItemForAuctionRequest
+    {
+        [Newtonsoft.Json.JsonProperty("sellerId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.RegularExpression(@".{3}.*")]
+        public string SellerId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("minimumBidDkk", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? MinimumBidDkk { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("quantityKg", Required = Newtonsoft.Json.Required.Always)]
+        public double QuantityKg { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("riceQuality", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public CommonRiceQuality RiceQuality { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("sellerName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? SellerName { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class PostNewItemForAuctionResponse
+    {
+        [Newtonsoft.Json.JsonProperty("sellerId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string SellerId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("sellerName", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? SellerName { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("itemId", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string ItemId { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("registrationTime", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset RegistrationTime { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class PutBidRequest
+    {
+        [Newtonsoft.Json.JsonProperty("amountDkk", Required = Newtonsoft.Json.Required.Always)]
+        public int AmountDkk { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TestRequest
+    {
+        [Newtonsoft.Json.JsonProperty("someNullableReferenceType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? SomeNullableReferenceType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("someNonNullableReferenceType", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string SomeNonNullableReferenceType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("someNullableValueType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? SomeNullableValueType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("someNonNullableValueType", Required = Newtonsoft.Json.Required.Always)]
+        public int SomeNonNullableValueType { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TestResponse
+    {
+        [Newtonsoft.Json.JsonProperty("someNullableReferenceType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? SomeNullableReferenceType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("someNonNullableReferenceType", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string SomeNonNullableReferenceType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("someNullableValueType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? SomeNullableValueType { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("someNonNullableValueType", Required = Newtonsoft.Json.Required.Always)]
+        public int SomeNonNullableValueType { get; set; } = default!;
+
+    }
+
+
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiException : System.Exception
+    {
+        public int StatusCode { get; private set; }
+
+        public string? Response { get; private set; }
+
+        public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
+
+        public ApiException(string message, int statusCode, string? response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Exception? innerException)
+            : base(message + "\n\nStatus: " + statusCode + "\nResponse: \n" + ((response == null) ? "(null)" : response.Substring(0, response.Length >= 512 ? 512 : response.Length)), innerException)
+        {
+            StatusCode = statusCode;
+            Response = response;
+            Headers = headers;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.15.5.0 (NJsonSchema v10.6.6.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ApiException<TResult> : ApiException
+    {
+        public TResult Result { get; private set; }
+
+        public ApiException(string message, int statusCode, string? response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result, System.Exception? innerException)
+            : base(message, statusCode, response, headers, innerException)
+        {
+            Result = result;
+        }
+    }
+
 }
 
 #pragma warning restore 1591

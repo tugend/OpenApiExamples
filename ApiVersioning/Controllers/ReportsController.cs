@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiVersioning.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/reports")]
+    [ApiExplorerSettings(GroupName = "reports")]
     public class ReportsController : ControllerBase
     {
-        [ApiVersion("2-reports")]
-        [ApiVersion("3-reports")]
+        [ApiVersion("2")]
+        [ApiVersion("3")]
         [HttpGet]
-        public IEnumerable<ReportResponse> GetReports(ReportRange range)
+        public IEnumerable<ReportResponse> GetReports()
         {
             return new List<ReportResponse>(ReportResponse.From("Here are some detailed forecast reports!"));
         }

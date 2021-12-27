@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
@@ -8,28 +9,24 @@ namespace ApiVersioning.Infrastructure.Options
 {
     public class ConfigureSwaggerUi : IConfigureOptions<SwaggerUIOptions>
     {
-        private readonly IApiVersionDescriptionProvider _provider;
+        private readonly IApiDescriptionGroupCollectionProvider _provider;
 
-        public ConfigureSwaggerUi(IApiVersionDescriptionProvider provider) => _provider = provider;
+        public ConfigureSwaggerUi(IApiDescriptionGroupCollectionProvider provider) => _provider = provider;
         
         public void Configure(SwaggerUIOptions options)
         {
-            // Generate a web page at /{RoutePrefix}/index.html
-            // that display an api per api description.
-            // 
-            // Assumes per api description that the associated open api document
-            // can be found at {url}. This is usually set in SwaggerOptions.
-            //
-            // The name of each description as presented in the drop down
-            // selector is {documentName}.
-            options.RoutePrefix = "swagger";
+            var endpointDescriptions = _provider.ApiDescriptionGroups.Items;
             
-            foreach (var description in _provider.ApiVersionDescriptions.OrderBy(x => x.GroupName))
+            // Order alphabetically
+            foreach (var item in endpointDescriptions.OrderBy(x => x.GroupName))
             {
-                var url = $"/swagger/{description.GroupName}/swagger.json";
-                var documentName = description.GroupName;
-                options.SwaggerEndpoint(url,  documentName);
-            }        
+                // Must match urlNameSwaggerJsonDocumentIsPublishedAt from ConfigureSwaggerGen
+                var whereToFindSwaggerJson = $"/swagger/{item.GroupName}/swagger.json"; 
+                
+                var documentSelectorDropdownName = TitleFormatter.FormatSwaggerGroupNameForDisplay(item.GroupName);
+
+                options.SwaggerEndpoint(whereToFindSwaggerJson, documentSelectorDropdownName);
+            }
         }
     }
 }

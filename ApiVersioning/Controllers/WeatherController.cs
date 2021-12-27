@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiVersioning.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [Route("api/[controller]")]  
+    [Route("api/v{version:apiVersion}/weather")]
+    [ApiExplorerSettings(GroupName = "weather")]
+    [Route("api/weather")]  
     public class WeatherController : ControllerBase
     {
         private readonly Forecaster _forecaster;
@@ -19,8 +20,8 @@ namespace ApiVersioning.Controllers
             _forecaster = forecaster;
         }
 
-        [ApiVersion("2-weather")]
-        [ApiVersion("1-weather")]
+        [ApiVersion("2")]
+        [ApiVersion("1")]
         [Obsolete("Please upgrade to v3, this version will be removed in December 2030.")]
         [HttpGet("forecasts")]
         public IEnumerable<ForecastV1Response> GetV1Forecast()
@@ -31,7 +32,8 @@ namespace ApiVersioning.Controllers
             return ForecastV1Response.From(forecasts);
         }
     
-        [ApiVersion("3-weather")]
+        [ApiExplorerSettings(GroupName = "Weather")]
+        [ApiVersion("3")]
         [HttpGet("forecasts")]
         public IEnumerable<ForecastResponse> GetForecast(ForecastRange range)
         {

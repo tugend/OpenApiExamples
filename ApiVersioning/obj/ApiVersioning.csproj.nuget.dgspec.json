@@ -48,11 +48,15 @@
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.0, )"
+            },
+            "NJsonSchema": {
+              "target": "Package",
+              "version": "[10.6.6, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[6.2.3, )"
             }
           },
           "imports": [

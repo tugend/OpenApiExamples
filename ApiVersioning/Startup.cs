@@ -1,4 +1,5 @@
 using ApiVersioning.Infrastructure.Options;
+using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using ApiVersioning.Infrastructure.ServiceCollectionExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -22,6 +23,9 @@ namespace ApiVersioning
                 .AddTransient<IConfigureOptions<MvcOptions>, ConfigureMvc>()
                 .AddControllers();
 
+            services.TryAddEnumerable(ServiceDescriptor.Transient<IApiDescriptionProvider, SubgroupDescriptionProvider>());
+
+            
             services
                 .AddTransient<IConfigureOptions<ApiVersioningOptions>, ConfigureApiVersioning>()
                 .AddApiVersioning();
@@ -42,11 +46,7 @@ namespace ApiVersioning
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
+            app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI();
             app.UseHttpsRedirection();

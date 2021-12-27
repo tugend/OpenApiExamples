@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ClientStubGenerator.GeneratorOverrides;
 using NSwag;
 using NSwag.CodeGeneration;
 using NSwag.CodeGeneration.CSharp;
@@ -18,17 +19,17 @@ var clientSettings = new CSharpClientGeneratorSettings
     {
         Namespace = "ExampledApi",
         GenerateNullableReferenceTypes = true,
-        TypeNameGenerator = new TypeNameGenerator()
+        TypeNameGenerator = new CustomTypeNameGenerator()
     }
 };
 
 var clientGenerator = new CSharpClientGenerator(document, clientSettings);
 Console.WriteLine("Generating client...");
 var everything = clientGenerator.GenerateFile(ClientGeneratorOutputType.Full);
-var contracts = clientGenerator.GenerateFile(ClientGeneratorOutputType.Contracts);
-var clients = clientGenerator.GenerateFile(ClientGeneratorOutputType.Implementation);
+// var contracts = clientGenerator.GenerateFile(ClientGeneratorOutputType.Contracts);
+// var clients = clientGenerator.GenerateFile(ClientGeneratorOutputType.Implementation);
 Console.WriteLine("Generated client");
 
 File.WriteAllText(Path.Combine("..", "..", "..", "Output", "ExampledApi.cs"), everything);
-File.WriteAllText(Path.Combine("..", "..", "..", "Output", "ExampledApiContracts.cs"), contracts);
-File.WriteAllText(Path.Combine("..", "..", "..", "Output", "ExampledApiClients.cs"), clients);
+// File.WriteAllText(Path.Combine("..", "..", "..", "Output", "ExampledApiContracts.cs"), contracts);
+// File.WriteAllText(Path.Combine("..", "..", "..", "Output", "ExampledApiClients.cs"), clients);

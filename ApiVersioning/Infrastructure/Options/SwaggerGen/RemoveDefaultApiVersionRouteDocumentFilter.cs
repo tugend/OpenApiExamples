@@ -23,7 +23,7 @@ namespace ApiVersioning.Infrastructure.Options.SwaggerGen
                     .ParameterDescriptions  
                     .All(p => p.Name != "api-version");
 
-                var isDefaultVersion = swaggerDoc.Info.Version.Equals("1");
+                var isDefaultVersion = swaggerDoc.Info.Version.StartsWith("1-");
 
                 // remove 'required' api version parameter from un-versioned endpoints
                 // from swagger (it's not required by the api since we've set AssumeDefaultVersionWhenUnspecified = true)
