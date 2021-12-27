@@ -9,7 +9,7 @@ namespace ApiVersioning.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/weather")]
-    [ApiExplorerSettings(GroupName = "Weather")]
+    [ApiExplorerSettings(GroupName = "weather")]
     [Route("api/weather")]  
     public class WeatherController : ControllerBase
     {

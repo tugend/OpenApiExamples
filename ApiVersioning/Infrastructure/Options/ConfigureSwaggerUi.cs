@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
@@ -14,12 +15,18 @@ namespace ApiVersioning.Infrastructure.Options
         
         public void Configure(SwaggerUIOptions options)
         {
-            foreach (var item in _provider.ApiDescriptionGroups.Items
-                .OrderBy(x => x.GroupName)
-                .ThenByDescending(x => x.Items[0].GetApiVersion()))
+            var endpointDescriptions = _provider.ApiDescriptionGroups.Items;
+            
+            // Order alphabetically
+            foreach (var item in endpointDescriptions.OrderBy(x => x.GroupName))
             {
-                options.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", item.GroupName);
-            }      
+                // Must match urlNameSwaggerJsonDocumentIsPublishedAt from ConfigureSwaggerGen
+                var whereToFindSwaggerJson = $"/swagger/{item.GroupName}/swagger.json"; 
+                
+                var documentSelectorDropdownName = TitleFormatter.FormatSwaggerGroupNameForDisplay(item.GroupName);
+
+                options.SwaggerEndpoint(whereToFindSwaggerJson, documentSelectorDropdownName);
+            }
         }
     }
 }

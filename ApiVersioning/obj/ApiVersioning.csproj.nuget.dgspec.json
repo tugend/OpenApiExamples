@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
+            "NJsonSchema": {
+              "target": "Package",
+              "version": "[10.6.6, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

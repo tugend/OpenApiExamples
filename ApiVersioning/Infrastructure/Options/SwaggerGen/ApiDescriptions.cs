@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.OpenApi.Models;
+﻿using System.Linq;
 
 namespace ApiVersioning.Infrastructure.Options.SwaggerGen
 {
@@ -27,52 +25,30 @@ namespace ApiVersioning.Infrastructure.Options.SwaggerGen
 * Add: Endpoint for fetching detailed forecast reports `GET /reports`
 ";
         
-        private const string ReportsV1 = 
+        private const string Default = 
             @"
-## Initial API: TODO
-";
-        private const string ReportsV2 = 
-            @"
-* Breaking: TODO
-";
-        private const string ReportsV3 = 
-            @"
-## Changes
-* Breaking: TODO
+## TODO
 ";
         
-        public static OpenApiInfo CreateInfoForApiVersion(string? groupGroupName, ApiDescription groupItem)
+        public static string GetDocumentation(string groupName, string version)
         {
-            var info = new OpenApiInfo
-            {
-                Title = "Weather API",
-                Version = groupItem.GetApiVersion().ToString(),
-                Description = GetDocumentation(groupItem.GetApiVersion())
-            };
-
-            if (groupItem.IsDeprecated())
-            {
-                info.Description += " This API version has been deprecated.";
-            }
-
-            return info;
-        }
-
-        private static string GetDocumentation(ApiVersion version) =>
-            version.Status == "weather"
-                ? version.MajorVersion switch
+            var apiName = groupName
+                .Split("_")
+                .FirstOrDefault();
+            
+            // Slightly hacky solution to string match this way here
+            return apiName == "weather" 
+                ? version switch
                 {
-                    1 => WeatherV1,
-                    2 => WeatherV2,
-                    3 => WeatherV3,
+                    "1" => WeatherV1,
+                    "2" => WeatherV2,
+                    "3" => WeatherV3,
                     _ => WeatherV1
                 }
-                : version.MajorVersion switch
+                : version switch
                 {
-                    1 => ReportsV1,
-                    2 => ReportsV2,
-                    3 => ReportsV3,
-                    _ => ReportsV1
+                    _ => Default
                 };
+        }
     }
 }

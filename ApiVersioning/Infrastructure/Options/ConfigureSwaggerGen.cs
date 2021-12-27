@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Linq;
 using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -15,39 +15,46 @@ namespace ApiVersioning.Infrastructure.Options
     {
         private readonly IApiDescriptionGroupCollectionProvider _groupProvider;
 
-        public ConfigureSwaggerGen(IApiDescriptionGroupCollectionProvider groupProvider)
-        {
-            _groupProvider = groupProvider;
-        }
+        public ConfigureSwaggerGen(IApiDescriptionGroupCollectionProvider groupProvider) => _groupProvider = groupProvider;
 
         public void Configure(SwaggerGenOptions options)
         {
-            var docs = options.SwaggerGeneratorOptions.SwaggerDocs;
-
             foreach (var group in _groupProvider.ApiDescriptionGroups.Items)
             {
-                docs.Add(group.GroupName!, CreateInfoForApiVersion(group));
+                var linkToOpenApiJsonDocument = group.GroupName!;
+                options.SwaggerGeneratorOptions.SwaggerDocs.Add(linkToOpenApiJsonDocument, CreateInfoForApiVersion(group));
             }
         }
-
-        private static OpenApiInfo CreateInfoForApiVersion(ApiDescriptionGroup description)
+        
+        public static OpenApiInfo CreateInfoForApiVersion(ApiDescriptionGroup endpointDescription)
         {
-            var groupApiVersion = description.Items[0];
+            // Can contain both no versioned and versioned endpoint
+            // but values should be the same
+            var apiVersion = endpointDescription
+                .Items
+                .Select(x => x.GetApiVersion().ToString()) 
+                .Distinct()
+                .Single();
 
+            var isDeprecated = endpointDescription
+                .Items
+                .Select(x => x.IsDeprecated())
+                .Distinct()
+                .Single();
+            
             var info = new OpenApiInfo
             {
-                Title = description.GroupName,
-                Version = groupApiVersion.GetApiVersion().ToString(),
+                Title = TitleFormatter.FormatSwaggerGroupNameForDisplay(endpointDescription.GroupName), // As defined by [ApiExplorerSettings(GroupName = "Weather")]
+                Version = apiVersion, // As defined by [ApiVersion("1")]
+                Description = ApiDescriptions.GetDocumentation(endpointDescription.GroupName!, apiVersion)
             };
 
-            if (groupApiVersion.IsDeprecated())
+            if (isDeprecated)
             {
                 info.Description += $"{Environment.NewLine}This API version has been deprecated";
             }
 
             return info;
         }
-
-       
     }
 }

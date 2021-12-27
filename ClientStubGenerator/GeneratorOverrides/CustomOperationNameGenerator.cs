@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NJsonSchema;
 using NSwag;
 using NSwag.CodeGeneration.OperationNameGenerators;

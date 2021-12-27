@@ -79,7 +79,7 @@ namespace ApiVersioningTests
         
         [Theory]
         [InlineData("api/reports")]
-        public async Task UnversionedReportResourcesShouldNotBeAvailable(string path)
+        public async Task Un_VersionedReportResourcesShouldNotBeAvailable(string path)
         {
             // Arrange
             var message = HttpRequestMessageBuilder
@@ -87,10 +87,9 @@ namespace ApiVersioningTests
                 .Build();
 
             // ACT
-            var response = await _client
+            await _client
                 .SendAsync(message)
-                .AssertStatusCode(HttpStatusCode.NotFound)
-                .Deserialize<ErrorResponse>();
+                .AssertStatusCode(HttpStatusCode.NotFound);
         }
         
         [Theory]

@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 
-namespace ApiVersioning.Infrastructure
+namespace ApiVersioning.Infrastructure.Options.SwaggerGen
 {
     public class SubgroupDescriptionProvider : IApiDescriptionProvider
     {
-        private readonly IOptions<ApiExplorerOptions> options;
+        private readonly IOptions<ApiExplorerOptions> _options;
 
         public SubgroupDescriptionProvider(IOptions<ApiExplorerOptions> options)
-            => this.options = options;
+            => _options = options;
 
         // Execute after DefaultApiVersionDescriptionProvider.OnProvidersExecuted
         public int Order => -1;
@@ -19,16 +18,11 @@ namespace ApiVersioning.Infrastructure
 
         public void OnProvidersExecuted(ApiDescriptionProviderContext context)
         {
-            var format = options.Value.GroupNameFormat;
-            var culture = CultureInfo.CurrentCulture;
-            var results = context.Results;
-            var newResults = new List<ApiDescription>(capacity: results.Count);
-
-            for (var i = 0; i < results.Count; i++)
+            foreach (var result in context.Results)
             {
-                var result = results[i];
-                var apiVersion = result.GetApiVersion();
-                var versionGroupName = apiVersion.ToString(format, culture);
+                var versionGroupName = result
+                    .GetApiVersion()
+                    .ToString(_options.Value.GroupNameFormat, CultureInfo.CurrentCulture);
 
                 // [ApiExplorerSettings(GroupName="...")] was NOT set so
                 // nothing else to do
@@ -39,18 +33,8 @@ namespace ApiVersioning.Infrastructure
 
                 // must be using [ApiExplorerSettings(GroupName="...")] so
                 // concatenate it with the formatted API version
-                result.GroupName += " " + versionGroupName;
-
-                // optional: add version grouping as well
-                // note: this works because the api description will appear in
-                // multiple, but different, documents
-                //var newResult = result.Clone();
-
-                //newResult.GroupName = versionGroupName;
-                //newResults.Add(newResult);
+                result.GroupName = $"{result.GroupName}_{versionGroupName}";
             }
-
-            newResults.ForEach(results.Add);
         }
     }
 }
