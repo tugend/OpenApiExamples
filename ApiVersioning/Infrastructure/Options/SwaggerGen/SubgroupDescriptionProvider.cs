@@ -1,5 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Options;
 
 namespace ApiVersioning.Infrastructure.Options.SwaggerGen
@@ -20,20 +21,16 @@ namespace ApiVersioning.Infrastructure.Options.SwaggerGen
         {
             foreach (var result in context.Results)
             {
-                var versionGroupName = result
+                var versionName = result
                     .GetApiVersion()
-                    .ToString(_options.Value.GroupNameFormat, CultureInfo.CurrentCulture);
+                    .ToString(_options.Value.GroupNameFormat);
 
-                // [ApiExplorerSettings(GroupName="...")] was NOT set so
-                // nothing else to do
-                if (result.GroupName == versionGroupName)
-                {
-                    continue;
-                }
-
-                // must be using [ApiExplorerSettings(GroupName="...")] so
-                // concatenate it with the formatted API version
-                result.GroupName = $"{result.GroupName}_{versionGroupName}";
+                var controllerName = (result.ActionDescriptor as ControllerActionDescriptor)?
+                    .ControllerName
+                    .ToLowerInvariant()
+                    ?? throw new Exception("TODO");
+            
+                result.GroupName = $"{controllerName}_{versionName}";
             }
         }
     }

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -23,9 +22,6 @@ namespace ApiVersioning
                 .AddTransient<IConfigureOptions<MvcOptions>, ConfigureMvc>()
                 .AddControllers();
 
-            services.TryAddEnumerable(ServiceDescriptor.Transient<IApiDescriptionProvider, SubgroupDescriptionProvider>());
-
-            
             services
                 .AddTransient<IConfigureOptions<ApiVersioningOptions>, ConfigureApiVersioning>()
                 .AddApiVersioning();
@@ -33,11 +29,12 @@ namespace ApiVersioning
             services
                 .AddTransient<IConfigureOptions<ApiExplorerOptions>, ConfigureApiExplorer>()
                 .AddVersionedApiExplorer();
-            
+
             services
                 .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGen>()
                 .AddTransient<IConfigureOptions<SwaggerOptions>, ConfigureSwagger>()
                 .AddTransient<IConfigureOptions<SwaggerUIOptions>, ConfigureSwaggerUi>()
+                .AddTransient<IApiDescriptionProvider, SubgroupDescriptionProvider>()
                 .AddSwaggerGen();
             
             services

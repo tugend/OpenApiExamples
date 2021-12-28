@@ -5,8 +5,7 @@ using NSwag;
 using NSwag.CodeGeneration;
 using NSwag.CodeGeneration.CSharp;
 
-// https://stackoverflow.com/questions/45241177/nswag-namespace-in-model-names
-var inputPath = Path.Combine("..", "..", "..", "input", "swagger.json");
+var inputPath = Path.Combine("..", "..", "..", "input", "swagger2.json");
 var document = await OpenApiDocument.FromFileAsync(inputPath);
 
 var clientSettings = new CSharpClientGeneratorSettings 

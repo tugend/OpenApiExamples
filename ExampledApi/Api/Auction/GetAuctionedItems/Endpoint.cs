@@ -18,7 +18,7 @@ namespace ExampledApi.Api.Auction.GetAuctionedItems
             var fakeRiceAuctionId = Guid.Parse("6417b261-b4d4-45bb-b141-0d0a9c1ea0f8");
             if (auctionId != fakeRiceAuctionId)
             {
-                return NotFound("Unknown auction id");
+                return new NotFoundObjectResult(new {Message = "Unknown auction id" });
             }
             
             return new CreatedResult($"/items/{Guid.NewGuid()}", new List<Response>

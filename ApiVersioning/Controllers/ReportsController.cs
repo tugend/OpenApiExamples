@@ -6,7 +6,6 @@ namespace ApiVersioning.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/reports")]
-    [ApiExplorerSettings(GroupName = "reports")]
     public class ReportsController : ControllerBase
     {
         [ApiVersion("2")]

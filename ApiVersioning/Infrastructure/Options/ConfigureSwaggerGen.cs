@@ -2,6 +2,7 @@
 using System.Linq;
 using ApiVersioning.Infrastructure.Options.SwaggerGen;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -24,6 +25,8 @@ namespace ApiVersioning.Infrastructure.Options
                 var linkToOpenApiJsonDocument = group.GroupName!;
                 options.SwaggerGeneratorOptions.SwaggerDocs.Add(linkToOpenApiJsonDocument, CreateInfoForApiVersion(group));
             }
+            
+            options.DocumentFilter<RemoveDefaultApiVersionRouteDocumentFilter>();
         }
         
         public static OpenApiInfo CreateInfoForApiVersion(ApiDescriptionGroup endpointDescription)
